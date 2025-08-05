@@ -46,22 +46,26 @@
     <button class="btn" id="opt5" type="button" onclick="submitAnswer('60+')"></button>
   </form>
 
-  <script>
-  function submitAnswer(value) {
-    fetch("https://script.google.com/macros/library/d/1SnQA8rVOwE12H3ISFkSCyb60Cvc8BLKLjWtP0NXNbdzObB0xrTx1MwaI/1", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ idade: value })
-    })
-    .then(response => {
-      alert("Resposta registrada: " + value);
-    })
-    .catch(error => {
-      alert("Erro ao registrar resposta: " + error);
-    });
-  }
-</script>
+   <script>
+    function submitAnswer(value) {
+      fetch("https://script.google.com/macros/s/AKfycbwBurcCwWROoC_uAafp6JGLniItlF5faIITHpc6MCixdHMI_VeX-A7czp_WkPOr-4D3/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ idade: value })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("Erro na resposta do servidor.");
+        return response.text();
+      })
+      .then(result => {
+        alert("Resposta registrada: " + value);
+      })
+      .catch(error => {
+        alert("Erro ao registrar resposta: " + error);
+      });
+    }
+  </script>
 </body>
 </html>
