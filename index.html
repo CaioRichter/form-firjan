@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Pesquisa FIRJAN</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('https://i.imgur.com/6nOQGE6.jpeg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100vh;
+      position: relative;
+      font-family: sans-serif;
+    }
+
+    .btn {
+      position: absolute;
+      width: 50px;   /* mais preciso para os quadrados */
+      height: 50px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      outline: 2px solid rgba(255,255,255,0.3);
+    }
+
+    /* Posições ajustadas conforme print da imagem esticada */
+    #opt1 { top: 140px; left: 110px; }
+    #opt2 { top: 230px; left: 110px; }
+    #opt3 { top: 320px; left: 110px; }
+    #opt4 { top: 410px; left: 110px; }
+    #opt5 { top: 500px; left: 110px; }
+  </style>
+</head>
+<body>
+  <form id="form">
+    <button class="btn" id="opt1" type="button" onclick="submitAnswer('18-29')"></button>
+    <button class="btn" id="opt2" type="button" onclick="submitAnswer('30-39')"></button>
+    <button class="btn" id="opt3" type="button" onclick="submitAnswer('40-49')"></button>
+    <button class="btn" id="opt4" type="button" onclick="submitAnswer('50-59')"></button>
+    <button class="btn" id="opt5" type="button" onclick="submitAnswer('60+')"></button>
+  </form>
+
+  <script>
+  function submitAnswer(value) {
+    fetch("https://script.google.com/macros/s/AKfycbwADyqlUiQ7h_Jr_B7d1__xflYCW-izlEE-GtJeVTaDl3UhgYtbZ-ApeejA-9fbLeqF/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ idade: value })
+    })
+    .then(response => {
+      alert("Resposta registrada: " + value);
+    })
+    .catch(error => {
+      alert("Erro ao registrar resposta: " + error);
+    });
+  }
+</script>
+</body>
+</html>
